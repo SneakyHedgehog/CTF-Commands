@@ -1,0 +1,48 @@
+LDAP
+
+ldapsearch -h [LDAP Host]
+> LDAP query against a host
+
+ldapsearch -x -b '[search_base]' -h [LDAP Host]
+> LDAP query for a search base (e.g. DC=GOOGLE, DC=LOCAL) against a host
+>> additional search base options can be added {e.g.  'DC=GOOGLE, DC=LOCAL' '(objectClass=Person)'}
+
+LDAP query filtering and printing account names
+ldapsearch -h [LDAP Host] -x -b '[search base]' '(objectClass=Person)' sAMAccountName | grep sAMAccountName | awk '{print $2}'
+
+RPC
+
+rpcdump.py -p [Port] [Target IP]
+> dump information from RPC
+
+rpcclient -U '' [Target IP]
+> null session connection via RPC
+
+CackMapExec Commands
+
+crackmapexec {http,winrm,smb,ssh,mssql}
+> CME available protocols
+
+crackmapexec smb [Target CIDR]
+> Scan SMB of an IP or CIDR 
+
+crackmapexec smb [Target IP/CIDR] --pass-pol -u '' -p ''
+> SMB Null authentication
+
+crackmapexec smb [Target IP] -u [Username] -p [Password]
+> CME SMB authentication with known username and password
+
+crackmapexec smb [Target IP] -u [userlist] -p [pwlist]
+> CME SMB authentication w/ userlist/pwlist combination
+
+crackmapexec smb [Target IP] --pass-pol -u [userlist] -p [pwlist]
+> CME SMB authentication with a password policy dump
+
+crackmapexec smb [Target IP/CIDR] -u [Username] -p [Password] -M mimikatz
+> CME SMB authentication with Mimikatz
+
+Password Tools
+
+spray.sh -smb [targetIP] [usernameList] [passwordList] [AttemptsPerLockoutPeriod] [LockoutPeriodInMinutes] [Domain] [OptionalSkipUsernameUsernameSpray]
+
+
