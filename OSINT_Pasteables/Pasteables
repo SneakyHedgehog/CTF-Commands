@@ -1,0 +1,18 @@
+---
+DNS
+---
+
+#WHOIS
+whois domain-name-here.com 
+
+#DNS Lookup
+dig a domain-name-here.com @nameserver
+
+#MX Lookup
+dig mx domain-name-here.com @nameserver
+
+#Zone Transfer
+
+dig axfr domain-name-here.com @nameserver
+
+

