@@ -9,7 +9,7 @@ hostname
 #Identity
 whoami
 whoami /priv
-echo %username%
+whoami /groups *
 
 #Users/Local Groups
 net users
