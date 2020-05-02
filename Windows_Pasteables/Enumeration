@@ -178,6 +178,18 @@ C:\inetpub\logs\LogFiles\FTPSVC2\u_ex[YYMMDD].log
 dir /s php.ini httpd.conf httpd-xampp.conf my.ini my.cnf
 dir /s access.log error.log
 
+----------
+Powershell
+----------
+
+#Invoke a command as another user
+$pass = c0nvertTo-SecureString '<insertcred> -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential("<user.,$pass)
+Invoke-Command -Computer CONTROL -ScriptBlock {command} -Credential $cred
+
+#Console history
+%userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
+
 -------------------------
 File transfer: PowerShell
 -------------------------
